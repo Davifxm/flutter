@@ -6,12 +6,14 @@ class GaleriaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 248, 242, 242),
 
       appBar: AppBar(
         title: const Text('Galeria'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
+
+        
       ),
       drawer: Drawer(
         child: Column(
@@ -33,16 +35,78 @@ class GaleriaPage extends StatelessWidget {
           ]
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Expanded(
-            child: Image.asset('images/images.webp'),
-            )
-          ]
-        )
-      )
+     body: Padding(
+  padding: const EdgeInsets.all(16),
+
+  child: Column(
+    children: [
+      const CircleAvatar(
+        radius: 40,
+        backgroundImage: AssetImage(
+          '/images/images.webp',
+        ),
+      ),
+
+      const SizedBox(height: 25),
+
+      Expanded(
+  child: Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxWidth: 600,
+      ),
+
+      child: GridView.count(
+        crossAxisCount: 2,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+        childAspectRatio: 1,
+
+        children: [
+          Center(
+            child: Image.asset(
+              '/images/goku.png',
+              width: 180,
+              height: 180,
+              fit: BoxFit.contain,
+            ),
+          ),
+
+          Center(
+            child: Image.asset(
+              '/images/naruto.png',
+              width: 180,
+              height: 180,
+              fit: BoxFit.contain,
+            ),
+          ),
+
+          Center(
+            child: Image.asset(
+              '/images/luffy.png',
+              width: 180,
+              height: 180,
+              fit: BoxFit.contain,
+            ),
+          ),
+
+          Center(
+            child: Image.asset(
+              '/images/gojo.png',
+              width: 180,
+              height: 180,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ],
+      ),
+    ),
+  ),
+   ),
+    ],
+  ),
+)
+
     );
   }
 }
