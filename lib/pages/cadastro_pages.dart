@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'galeria_page.dart';
+import 'painel_administrativo_page.dart';
+
 class CadastroPage extends StatefulWidget {
   const CadastroPage({super.key});
 
@@ -9,8 +10,7 @@ class CadastroPage extends StatefulWidget {
 
 class _CadastroPageState extends State<CadastroPage> {
   final _formKey = GlobalKey<FormState>();
-bool aceitouTermos = false;
-
+  bool aceitouTermos = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +18,14 @@ bool aceitouTermos = false;
       backgroundColor: Colors.white,
 
       appBar: AppBar(
-    
+        title: const Text('Login'),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
       ),
 
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
-         
+
         child: Form(
           key: _formKey,
 
@@ -31,20 +33,18 @@ bool aceitouTermos = false;
             children: [
               CircleAvatar(
                 radius: 60,
-               backgroundColor: Colors.blue,
-               child: ClipOval(
-                child: Image.asset(
-                  'images/images.webp',
-                  fit: BoxFit.cover,
-                  width: 120,
-                  height: 120,
+                backgroundColor: Colors.blue,
+                child: ClipOval(
+                  child: Image.asset(
+                    'assets/images/images.webp',
+                    fit: BoxFit.cover,
+                    width: 120,
+                    height: 120,
+                  ),
                 ),
-              ),
               ),
 
               const SizedBox(height: 25),
-
-         
 
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
@@ -66,8 +66,6 @@ bool aceitouTermos = false;
               ),
 
               const SizedBox(height: 16),
-
-             
 
               const SizedBox(height: 16),
 
@@ -93,7 +91,6 @@ bool aceitouTermos = false;
               const SizedBox(height: 24),
 
               SizedBox(
-                
                 height: 50,
 
                 child: ElevatedButton(
@@ -103,43 +100,46 @@ bool aceitouTermos = false;
                   ),
 
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                        Navigator.push(
+                    if (!aceitouTermos) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Você precisa aceitar os termos'),
+                        ),
+                      );
+                    } else if (_formKey.currentState!.validate()) {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const GaleriaPage()
+                          builder: (context) =>
+                              const PainelAdministrativoPage(),
                         ),
                       );
                     }
                   },
 
-                  child: const Text(
-                    'Entrar',
-                    style: TextStyle(fontSize: 16),
-                    
-                  ),
+                  child: const Text('Entrar', style: TextStyle(fontSize: 16)),
                 ),
               ),
               const SizedBox(height: 15),
 
-Row(
-  children: [
-    Checkbox(
-      shape: CircleBorder(),
-      value: aceitouTermos,
-      onChanged: (valor) {
-        setState(() {
-          aceitouTermos = valor!;
-        });
-      },
-    ),
+              Row(
+                children: [
+                  Checkbox(
+                    shape: CircleBorder(),
+                    value: aceitouTermos,
+                    onChanged: (valor) {
+                      setState(() {
+                        aceitouTermos = valor!;
+                      });
+                    },
+                  ),
 
-    const Text(
-      "Aceito os termos",
-      style: TextStyle(fontSize: 16),
-    ),
-  ],
-),
+                  const Text(
+                    "Aceito os termos",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
